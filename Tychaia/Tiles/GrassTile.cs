@@ -12,6 +12,7 @@ namespace Tychaia.Tiles
             : base()
         {
             this.Image = "tiles.grass";
+            this.BackImage = "tiles.grass_back";
         }
     }
 }

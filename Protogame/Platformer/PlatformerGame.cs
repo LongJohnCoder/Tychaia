@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Protogame.Platformer
 {
-    public class PlatformerGame<T> : CoreGame<T> where T : PlayerWorld, new()
+    public class PlatformerGame<T> : CoreGame<T, WorldManager> where T : PlayerWorld, new()
     {
     }
 }

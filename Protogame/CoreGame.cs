@@ -8,10 +8,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Protogame
 {
-    public abstract class CoreGame<InitialWorld> : Game where InitialWorld : World, new()
+    public abstract class CoreGame<InitialWorld, WorldManagerType> : Game where InitialWorld : World, new() where WorldManagerType : WorldManager, new()
     {
         protected GameContext m_GameContext = null;
         private WorldManager m_WorldManager = null;
+        private int m_TotalFrames = 0;
+        private float m_ElapsedTime = 0.0f;
 
         public World World
         {
@@ -30,7 +32,7 @@ namespace Protogame
                 World = new InitialWorld(),
                 Graphics = new GraphicsDeviceManager(this)
             };
-            this.m_WorldManager = new WorldManager();
+            this.m_WorldManager = new WorldManagerType();
             this.World.GameContext = this.m_GameContext;
             this.World.Game = this;
         }
@@ -94,6 +96,15 @@ namespace Protogame
             //if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             //    this.Exit();
 
+            // Measure FPS.
+            this.m_ElapsedTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (this.m_ElapsedTime >= 1000f)
+            {
+                this.m_GameContext.FPS = this.m_TotalFrames;
+                this.m_TotalFrames = 0;
+                this.m_ElapsedTime = 0;
+            }
+
             // Update the game.
             this.m_GameContext.GameTime = gameTime;
             this.m_WorldManager.Update(this.m_GameContext);
@@ -107,6 +118,8 @@ namespace Protogame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            this.m_TotalFrames++;
+
             // Skip if we haven't yet loaded the sprite batch.
             if (this.m_GameContext.SpriteBatch == null)
                 throw new ProtogameException("The sprite batch instance was not set when it came time to draw the game.  Ensure that you are calling base.LoadContent in the overridden LoadContent method of your game.");

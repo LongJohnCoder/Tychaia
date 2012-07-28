@@ -58,9 +58,10 @@ namespace Tychaia
         {
             XnaGraphics xna = new XnaGraphics(context);
             //this.m_FieldOfViewRenderer.Render(context, xna);
-            int i = 0;
-            foreach (IPositionable p in this.m_Uniques)
-                xna.DrawStringLeft(8, 8 + (i++) * 16, p.ToString());
+            //int i = 0;
+            //foreach (IPositionable p in this.m_Uniques)
+            //    xna.DrawStringLeft(8, 8 + (i++) * 16, p.ToString());
+            xna.DrawStringLeft(8, 8, "FPS: " + context.FPS, "Arial");
         }
 
         private bool m_Regenerated = false;
@@ -177,8 +178,8 @@ namespace Tychaia
             if (this.RenderDepthValue > 63)
                 this.RenderDepthValue = 0;*/
             this.RenderDepthValue = (byte)(this.m_Player.WorldZ);
-            this.RenderDepthUpRange = 15;
-            this.RenderDepthDownRange = 15;
+            this.RenderDepthUpRange = 8;
+            this.RenderDepthDownRange = 8;
 
             return true; // update entities
         }

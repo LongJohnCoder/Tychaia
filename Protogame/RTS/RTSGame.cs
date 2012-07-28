@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Protogame.RTS
 {
-    public class RTSGame<T> : CoreGame<T> where T : RTSWorld, new()
+    public class RTSGame<T> : CoreGame<T, WorldManager> where T : RTSWorld, new()
     {
     }
 }

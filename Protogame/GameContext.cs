@@ -21,6 +21,7 @@ namespace Protogame
         public GameTime GameTime { get; set; }
         public Camera Camera { get; set; }
         public GameWindow Window { get; set; }
+        public int FPS { get; internal set; }
 
         internal GameContext()
         {

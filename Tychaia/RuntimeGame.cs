@@ -16,7 +16,7 @@ namespace Tychaia
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class RuntimeGame : CoreGame<TitleWorld>
+    public class RuntimeGame : CoreGame<TitleWorld, IsometricWorldManager>
     {
         public static GraphicsDevice DeviceForStateValidationOutput = null;
         public static GameContext ContextForStateValidationOutput = null;
@@ -64,6 +64,7 @@ namespace Tychaia
             this.m_GameContext.LoadFont("ButtonFont");
             this.m_GameContext.LoadTexture("tiles.water");
             this.m_GameContext.LoadTexture("tiles.grass");
+            this.m_GameContext.LoadTexture("tiles.grass_back");
             this.m_GameContext.LoadTexture("tiles.snow");
             this.m_GameContext.LoadTexture("tiles.lava");
             this.m_GameContext.LoadTexture("tiles.stone");

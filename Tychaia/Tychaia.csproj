@@ -142,6 +142,7 @@
     <Compile Include="Generators\IGenerator.cs" />
     <Compile Include="Generators\IPositionable.cs" />
     <Compile Include="Generators\WorldGenerator.cs" />
+    <Compile Include="IsometricWorldManager.cs" />
     <Compile Include="Lighting\FieldOfView.cs" />
     <Compile Include="Lighting\FieldOfViewRenderer.cs" />
     <Compile Include="Log.cs" />

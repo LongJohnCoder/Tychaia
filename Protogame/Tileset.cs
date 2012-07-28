@@ -10,8 +10,8 @@ namespace Protogame
     {
         public const int TILESET_PIXEL_WIDTH = 4000;
         public const int TILESET_PIXEL_HEIGHT = 4000;
-        public const int TILESET_CELL_WIDTH = 16;
-        public const int TILESET_CELL_HEIGHT = 16;
+        public const int TILESET_CELL_WIDTH = 32;
+        public const int TILESET_CELL_HEIGHT = 32;
         public static readonly int TILESET_WIDTH = (int)Math.Ceiling((float)TILESET_PIXEL_WIDTH / (float)TILESET_CELL_WIDTH);
         public static readonly int TILESET_HEIGHT = (int)Math.Ceiling((float)TILESET_PIXEL_HEIGHT / (float)TILESET_CELL_HEIGHT);
         private const int TILESET_DEPTH = 16;
