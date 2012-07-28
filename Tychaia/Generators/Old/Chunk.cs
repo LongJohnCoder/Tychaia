@@ -11,9 +11,11 @@ namespace Tychaia.Generators
 {
     public class Chunk
     {
-        public const int Width = 2000 / Tileset.TILESET_CELL_WIDTH;
-        public const int Height = 1000 / Tileset.TILESET_CELL_HEIGHT;
-        public const byte Depth = 64;
+        public const int CHUNK_SIZE = 16;
+
+        public const int Width = 16;
+        public const int Height = 16;
+        public const int Depth = 256;
 
         public Block[,,] m_Blocks = null;
         private object m_BlocksLock = new object();
