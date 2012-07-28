@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{F2683D9D-E141-490E-B2AA-53461910AC9D}</ProjectGuid>
+    <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tychaia</RootNamespace>
+    <AssemblyName>Tychaia</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
+    <XnaPlatform>Windows</XnaPlatform>
+    <XnaProfile>HiDef</XnaProfile>
+    <XnaCrossPlatformGroupID>0dcdec89-a33b-43ad-ab53-02df860dee24</XnaCrossPlatformGroupID>
+    <XnaOutputType>Game</XnaOutputType>
+    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>false</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>true</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Xact, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Video, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Avatar, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Storage, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mscorlib">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChunkEntity.cs" />
+    <Compile Include="ChunkTileset.cs" />
+    <Compile Include="Generators\Biomes\Biome.cs" />
+    <Compile Include="Generators\Biomes\SwampBiome.cs" />
+    <Compile Include="Generators\Biomes\WoodsBiome.cs" />
+    <Compile Include="Generators\Biomes\RainforestBiome.cs" />
+    <Compile Include="Generators\Biomes\SeasonalForestBiome.cs" />
+    <Compile Include="Generators\Biomes\GrassDesertBiome.cs" />
+    <Compile Include="Generators\Biomes\TaigaBiome.cs" />
+    <Compile Include="Generators\Biomes\TreeTypes\TaigaTreeType.cs" />
+    <Compile Include="Generators\Biomes\TundraBiome.cs" />
+    <Compile Include="Generators\Biomes\PlainsBiome.cs" />
+    <Compile Include="Generators\Biomes\ForestBiome.cs" />
+    <Compile Include="Generators\Biomes\DesertBiome.cs" />
+    <Compile Include="Generators\Biomes\TreeType.cs" />
+    <Compile Include="Generators\Biomes\TreeTypes\GrassTreeType.cs" />
+    <Compile Include="Generators\Biomes\TreeTypes\ForestTreeType.cs" />
+    <Compile Include="Generators\Chunk.cs" />
+    <Compile Include="Generators\BiomeGenerator.cs" />
+    <Compile Include="Generators\StateValidationGenerator.cs" />
+    <Compile Include="Generators\TemperatureGenerator.cs" />
+    <Compile Include="Generators\RainfallGenerator.cs" />
+    <Compile Include="Generators\Old\ContinentInformation.cs" />
+    <Compile Include="Generators\Old\ContinentPatchGenerator.cs" />
+    <Compile Include="Generators\Old\ContinentVarianceGenerator.cs" />
+    <Compile Include="Generators\Block.cs" />
+    <Compile Include="Generators\Old\ContinentAreaGenerator.cs" />
+    <Compile Include="Generators\Old\InitialWorldGenerator.cs" />
+    <Compile Include="Generators\IGenerator.cs" />
+    <Compile Include="Generators\IPositionable.cs" />
+    <Compile Include="Generators\WorldGenerator.cs" />
+    <Compile Include="Lighting\FieldOfView.cs" />
+    <Compile Include="Lighting\FieldOfViewRenderer.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="RuntimeGame.cs" />
+    <Compile Include="RandomExtensions.cs" />
+    <Compile Include="RPGWorld.cs" />
+    <Compile Include="TilesetDynamicLoader.cs" />
+    <Compile Include="Tiles\SandGrassTile.cs" />
+    <Compile Include="Tiles\SnowTile.cs" />
+    <Compile Include="Tiles\LeafGreyTile.cs" />
+    <Compile Include="Tiles\GrassLeafTile.cs" />
+    <Compile Include="Tiles\TrunkTile.cs" />
+    <Compile Include="Tiles\SandTile.cs" />
+    <Compile Include="Tiles\LeafTile.cs" />
+    <Compile Include="Tiles\StoneTile.cs" />
+    <Compile Include="Tiles\DirtTile.cs" />
+    <Compile Include="Tiles\LavaTile.cs" />
+    <Compile Include="Tiles\GrassTile.cs" />
+    <Compile Include="Tiles\WaterTile.cs" />
+    <Compile Include="Title\TitleWorld.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Game.ico" />
+    <Content Include="GameThumbnail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Protogame.Noise\Protogame.Noise.csproj">
+      <Project>{FE9A9DF1-16D8-4A24-8978-D4F2E540F039}</Project>
+      <Name>Protogame.Noise</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Protogame\Protogame.csproj">
+      <Project>{DF7D4601-0061-4329-9803-6917AF416B70}</Project>
+      <Name>Protogame</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tychaia.Content\Tychaia.Content.contentproj">
+      <Name>Tychaia.Content %28Content%29</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{71CB2FDC-897F-4E08-A793-E4201305B7DD}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Xna.Framework.4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft XNA Framework Redistributable 4.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <!--
+      To modify your build process, add your task inside one of the targets below and uncomment it. 
+      Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+    -->
+</Project>

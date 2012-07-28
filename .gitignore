@@ -2,5 +2,10 @@
 bin
 obj
 
-# mstest test results
+# MSTest test results
 TestResults
+
+# Solution and XNA files
+*.user
+*.suo
+*.cachefile
