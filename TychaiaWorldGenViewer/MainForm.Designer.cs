@@ -41,6 +41,9 @@
             this.c_RefreshImageButton = new System.Windows.Forms.Button();
             this.c_SaveConfigButton = new System.Windows.Forms.Button();
             this.c_LoadConfigButton = new System.Windows.Forms.Button();
+            this.c_PushZoomIterationsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.c_ViewAtSelectedLayerCheckbox = new System.Windows.Forms.CheckBox();
+            this.c_RenderProgress = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.c_RenderBox)).BeginInit();
             this.c_PushLayerMenu.SuspendLayout();
             this.SuspendLayout();
@@ -64,7 +67,7 @@
             this.c_LayersListBox.IntegralHeight = false;
             this.c_LayersListBox.Location = new System.Drawing.Point(530, 12);
             this.c_LayersListBox.Name = "c_LayersListBox";
-            this.c_LayersListBox.Size = new System.Drawing.Size(209, 438);
+            this.c_LayersListBox.Size = new System.Drawing.Size(209, 415);
             this.c_LayersListBox.TabIndex = 1;
             this.c_LayersListBox.SelectedValueChanged += new System.EventHandler(this.c_LayersListBox_SelectedValueChanged);
             // 
@@ -105,10 +108,11 @@
             // 
             this.c_PushLayerMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.c_PushGenerateContinentsMenuItem,
+            this.c_PushZoomIterationsMenuItem,
             this.toolStripMenuItem1,
             this.c_CancelPushMenuItem});
             this.c_PushLayerMenu.Name = "c_AddLayerMenu";
-            this.c_PushLayerMenu.Size = new System.Drawing.Size(183, 54);
+            this.c_PushLayerMenu.Size = new System.Drawing.Size(183, 76);
             // 
             // c_PushGenerateContinentsMenuItem
             // 
@@ -158,6 +162,32 @@
             this.c_LoadConfigButton.UseVisualStyleBackColor = true;
             this.c_LoadConfigButton.Click += new System.EventHandler(this.c_LoadConfigButton_Click);
             // 
+            // c_PushZoomIterationsMenuItem
+            // 
+            this.c_PushZoomIterationsMenuItem.Name = "c_PushZoomIterationsMenuItem";
+            this.c_PushZoomIterationsMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.c_PushZoomIterationsMenuItem.Text = "Zoom Iterations";
+            this.c_PushZoomIterationsMenuItem.Click += new System.EventHandler(this.c_PushZoomIterationsMenuItem_Click);
+            // 
+            // c_ViewAtSelectedLayerCheckbox
+            // 
+            this.c_ViewAtSelectedLayerCheckbox.AutoSize = true;
+            this.c_ViewAtSelectedLayerCheckbox.Location = new System.Drawing.Point(530, 433);
+            this.c_ViewAtSelectedLayerCheckbox.Name = "c_ViewAtSelectedLayerCheckbox";
+            this.c_ViewAtSelectedLayerCheckbox.Size = new System.Drawing.Size(191, 17);
+            this.c_ViewAtSelectedLayerCheckbox.TabIndex = 11;
+            this.c_ViewAtSelectedLayerCheckbox.Text = "Show only up to the selected layer.";
+            this.c_ViewAtSelectedLayerCheckbox.UseVisualStyleBackColor = true;
+            this.c_ViewAtSelectedLayerCheckbox.CheckedChanged += new System.EventHandler(this.c_ViewAtSelectedLayerCheckbox_CheckedChanged);
+            // 
+            // c_RenderProgress
+            // 
+            this.c_RenderProgress.Location = new System.Drawing.Point(189, 258);
+            this.c_RenderProgress.Name = "c_RenderProgress";
+            this.c_RenderProgress.Size = new System.Drawing.Size(158, 21);
+            this.c_RenderProgress.TabIndex = 12;
+            this.c_RenderProgress.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -165,6 +195,8 @@
             this.ClientSize = new System.Drawing.Size(958, 536);
             this.Controls.Add(this.c_LoadConfigButton);
             this.Controls.Add(this.c_SaveConfigButton);
+            this.Controls.Add(this.c_RenderProgress);
+            this.Controls.Add(this.c_ViewAtSelectedLayerCheckbox);
             this.Controls.Add(this.c_PushButton);
             this.Controls.Add(this.c_RefreshImageButton);
             this.Controls.Add(this.c_PopButton);
@@ -177,6 +209,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.c_RenderBox)).EndInit();
             this.c_PushLayerMenu.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -194,6 +227,9 @@
         private System.Windows.Forms.Button c_RefreshImageButton;
         private System.Windows.Forms.Button c_SaveConfigButton;
         private System.Windows.Forms.Button c_LoadConfigButton;
+        private System.Windows.Forms.ToolStripMenuItem c_PushZoomIterationsMenuItem;
+        private System.Windows.Forms.CheckBox c_ViewAtSelectedLayerCheckbox;
+        private System.Windows.Forms.ProgressBar c_RenderProgress;
     }
 }
 

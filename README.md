@@ -22,3 +22,5 @@ There's still a lot of work to be done regarding the game's procedural generatio
   * NPC and Family Tree Generation
   * Backstory Generation
   * Quest Generation
+
+![The world biome generation experimentation tool.](http://i.imgur.com/XINuz.png)

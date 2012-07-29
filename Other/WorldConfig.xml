@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SerializedLayers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Layer xsi:type="LayerContinent">
+    <LandLimit>0.4</LandLimit>
+  </Layer>
+  <Layer xsi:type="LayerZoom">
+    <SmoothEdges>true</SmoothEdges>
+    <Iterations>5</Iterations>
+  </Layer>
+</SerializedLayers>

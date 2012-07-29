@@ -14,7 +14,7 @@ namespace TychaiaWorldGenViewer
 {
     public partial class MainForm : Form
     {
-        Bitmap m_RenderedImage = null;
+        Stack<Bitmap> m_RenderedImages = new Stack<Bitmap>();
         int m_Seed = 83645465;
         Brush[] BrushAssociations;
 
@@ -38,18 +38,14 @@ namespace TychaiaWorldGenViewer
             this.c_RefreshImageButton.Enabled = this.c_LayersListBox.Items.Count > 0;
             this.c_SaveConfigButton.Enabled = true;
             this.c_LayerInspector.Enabled = this.c_LayersListBox.SelectedItem != null;
+            this.RevalidateImage();
         }
 
-        private void RegenerateImage()
+        private Bitmap RegenerateImageForLayer(Layer l)
         {
-            this.RevalidateForm();
-            this.m_RenderedImage = new Bitmap(this.c_RenderBox.Width, this.c_RenderBox.Height);
-            this.c_RenderBox.Image = this.m_RenderedImage;
-            if (this.c_LayersListBox.Items.Count == 0)
-                return;
-            Graphics g = Graphics.FromImage(this.m_RenderedImage);
+            Bitmap b = new Bitmap(this.c_RenderBox.Width, this.c_RenderBox.Height);
+            Graphics g = Graphics.FromImage(b);
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
-            Layer l = this.c_LayersListBox.Items[this.c_LayersListBox.Items.Count - 1] as Layer;
             int[] data = l.GenerateData(0, 0, 256, 256);
             for (int x = 0; x < 256; x++)
                 for (int y = 0; y < 256; y++)
@@ -57,56 +53,57 @@ namespace TychaiaWorldGenViewer
                         BrushAssociations[data[x + y * 256]],
                         new Rectangle(x * 2, y * 2, 2, 2)
                         );
-                    /*g.DrawString(
-                        data[x + y * 256].ToString(),
-                        new Font(FontFamily.GenericSansSerif, 8),
-                        Brushes.Black,
-                        new PointF(x * 2, y * 2)
-                        );*/
+            return b;
         }
 
-        private void c_PushButton_Click(object sender, EventArgs e)
+        private void RegenerateImage()
         {
-            this.c_PushLayerMenu.Show(this.c_PushButton, 0, this.c_PushButton.Height);
-
-            // Enable / disable layers depending on whether they require a parent layer.
-            this.c_PushGenerateContinentsMenuItem.Enabled = this.c_LayersListBox.Items.Count == 0;
-        }
-
-        private void c_CancelPushMenuItem_Click(object sender, EventArgs e)
-        {
-            this.c_PushLayerMenu.Hide();
-        }
-
-        #region Add Layers
-
-        private void c_PushGenerateContinentsMenuItem_Click(object sender, EventArgs e)
-        {
-            this.c_LayersListBox.Items.Add(new LayerContinent(83645465));
-            this.RegenerateImage();
-        }
-
-        #endregion
-
-        private void c_PopButton_Click(object sender, EventArgs e)
-        {
-            if (this.c_LayersListBox.Items.Count == 0)
-                return;
-            this.c_LayersListBox.Items.RemoveAt(this.c_LayersListBox.Items.Count - 1);
-            this.RegenerateImage();
-        }
-
-        private void c_LayersListBox_SelectedValueChanged(object sender, EventArgs e)
-        {
-            this.c_LayerInspector.SelectedObject = this.c_LayersListBox.SelectedItem;
             this.RevalidateForm();
+            this.m_RenderedImages.Clear();
+            if (this.c_LayersListBox.Items.Count == 0)
+            {
+                this.c_RenderBox.Image = null;
+                return;
+            }
+            if (!this.c_ViewAtSelectedLayerCheckbox.Checked)
+                this.m_RenderedImages.Push(
+                    this.RegenerateImageForLayer(this.c_LayersListBox.Items[this.c_LayersListBox.Items.Count - 1] as Layer)
+                );
+            else
+            {
+                this.c_RenderProgress.Value = 0;
+                this.c_RenderProgress.Visible = true;
+                this.c_RenderProgress.Refresh();
+                int i = 0;
+                foreach (Layer l in this.c_LayersListBox.Items)
+                {
+                    this.m_RenderedImages.Push(this.RegenerateImageForLayer(l));
+                    this.c_RenderProgress.Value = (int)(i++ / (double)this.c_LayersListBox.Items.Count * 100.0);
+                    this.c_RenderProgress.Refresh();
+                }
+                this.c_RenderProgress.Value = 100;
+                this.c_RenderProgress.Visible = false;
+                this.c_RenderProgress.Refresh();
+            }
+            this.RevalidateImage();
         }
 
-        private void c_LayerInspector_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        private void RevalidateImage()
         {
-            // This layer has been changed, so regenerate the image.
-            this.RegenerateImage();
+            if (this.c_LayersListBox.Items.Count == 0 || this.m_RenderedImages.Count == 0)
+            {
+                this.c_RenderBox.Image = null;
+                return;
+            }
+            if (this.c_ViewAtSelectedLayerCheckbox.Checked &&
+                this.c_LayersListBox.SelectedIndex != -1 &&
+                this.c_LayersListBox.SelectedIndex + 1 < this.m_RenderedImages.Count)
+                this.c_RenderBox.Image = this.m_RenderedImages.ElementAt(this.m_RenderedImages.Count - (this.c_LayersListBox.SelectedIndex + 1));
+            else
+                this.c_RenderBox.Image = this.m_RenderedImages.Peek(); // Always the only image pushed.
         }
+
+        #region Saving and Loading
 
         private void c_SaveConfigButton_Click(object sender, EventArgs e)
         {
@@ -119,7 +116,8 @@ namespace TychaiaWorldGenViewer
             {
                 XmlSerializer x = new XmlSerializer(typeof(SerializedLayers), new Type[]
                     {
-                        typeof(LayerContinent)
+                        typeof(LayerContinent),
+                        typeof(LayerZoom)
                     });
                 SerializedLayers config = new SerializedLayers();
                 foreach (Layer l in this.c_LayersListBox.Items)
@@ -151,7 +149,8 @@ namespace TychaiaWorldGenViewer
                 this.RegenerateImage();
                 XmlSerializer x = new XmlSerializer(typeof(SerializedLayers), new Type[]
                     {
-                        typeof(LayerContinent)
+                        typeof(LayerContinent),
+                        typeof(LayerZoom)
                     });
                 SerializedLayers config = null;
                 using (StreamReader reader = new StreamReader(ofd.FileName))
@@ -161,11 +160,80 @@ namespace TychaiaWorldGenViewer
                     MessageBox.Show(this, "Unable to load configuration file.", "Configuration invalid.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                for (int i = 0; i < config.Count; i++)
+                    config[i].SetValues(i == 0 ? null : config[i - 1], this.m_Seed);
                 foreach (Layer l in config)
                     this.c_LayersListBox.Items.Add(l);
                 this.RegenerateImage();
             }
         }
+
+        #endregion
+
+        #region General Controls
+
+        private void c_CancelPushMenuItem_Click(object sender, EventArgs e)
+        {
+            this.c_PushLayerMenu.Hide();
+        }
+
+        private void c_PopButton_Click(object sender, EventArgs e)
+        {
+            if (this.c_LayersListBox.Items.Count == 0)
+                return;
+            this.c_LayersListBox.Items.RemoveAt(this.c_LayersListBox.Items.Count - 1);
+            this.RegenerateImage();
+        }
+
+        private void c_LayersListBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            this.c_LayerInspector.SelectedObject = this.c_LayersListBox.SelectedItem;
+            this.RevalidateForm();
+        }
+
+        private void c_LayerInspector_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            // This layer has been changed, so regenerate the image.
+            this.RegenerateImage();
+        }
+
+        private void c_ViewAtSelectedLayerCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            // This toggle has been changed, so regenerate the image.
+            this.RegenerateImage();
+        }
+
+        #endregion
+
+        #region Add Layers
+
+        private void c_PushButton_Click(object sender, EventArgs e)
+        {
+            this.c_PushLayerMenu.Show(this.c_PushButton, 0, this.c_PushButton.Height);
+
+            // Enable / disable layers depending on whether they require a parent layer.
+            this.c_PushGenerateContinentsMenuItem.Enabled = this.c_LayersListBox.Items.Count == 0;
+            this.c_PushZoomIterationsMenuItem.Enabled = this.c_LayersListBox.Items.Count > 0;
+        }
+
+        private Layer GetParent()
+        {
+            return this.c_LayersListBox.Items[this.c_LayersListBox.Items.Count - 1] as Layer;
+        }
+
+        private void c_PushGenerateContinentsMenuItem_Click(object sender, EventArgs e)
+        {
+            this.c_LayersListBox.Items.Add(new LayerContinent(this.m_Seed));
+            this.RegenerateImage();
+        }
+
+        private void c_PushZoomIterationsMenuItem_Click(object sender, EventArgs e)
+        {
+            this.c_LayersListBox.Items.Add(new LayerZoom(this.GetParent()));
+            this.RegenerateImage();
+        }
+
+        #endregion
     }
 
     [Serializable]

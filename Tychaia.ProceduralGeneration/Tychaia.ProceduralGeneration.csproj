@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Layer.cs" />
     <Compile Include="LayerContinent.cs" />
+    <Compile Include="LayerZoom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
