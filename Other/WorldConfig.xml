@@ -5,6 +5,24 @@
   </Layer>
   <Layer xsi:type="LayerZoom">
     <SmoothEdges>true</SmoothEdges>
-    <Iterations>5</Iterations>
+  </Layer>
+  <Layer xsi:type="LayerRandomBiome" />
+  <Layer xsi:type="LayerZoom">
+    <SmoothEdges>true</SmoothEdges>
+    <Iterations>2</Iterations>
+  </Layer>
+  <Layer xsi:type="LayerRandomBiome">
+    <BiomeReplace>2</BiomeReplace>
+  </Layer>
+  <Layer xsi:type="LayerRandomBiome">
+    <BiomeReplace>4</BiomeReplace>
+  </Layer>
+  <Layer xsi:type="LayerZoom">
+    <SmoothEdges>true</SmoothEdges>
+  </Layer>
+  <Layer xsi:type="LayerZoom" />
+  <Layer xsi:type="LayerZoom">
+    <SmoothEdges>true</SmoothEdges>
+    <Iterations>2</Iterations>
   </Layer>
 </SerializedLayers>

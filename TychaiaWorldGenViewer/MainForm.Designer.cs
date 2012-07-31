@@ -36,12 +36,13 @@
             this.c_PopButton = new System.Windows.Forms.Button();
             this.c_PushLayerMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.c_PushGenerateContinentsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.c_PushZoomIterationsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.c_PushRandomBiomeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.c_CancelPushMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.c_RefreshImageButton = new System.Windows.Forms.Button();
             this.c_SaveConfigButton = new System.Windows.Forms.Button();
             this.c_LoadConfigButton = new System.Windows.Forms.Button();
-            this.c_PushZoomIterationsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.c_ViewAtSelectedLayerCheckbox = new System.Windows.Forms.CheckBox();
             this.c_RenderProgress = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.c_RenderBox)).BeginInit();
@@ -50,9 +51,9 @@
             // 
             // c_RenderBox
             // 
-            this.c_RenderBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.c_RenderBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.c_RenderBox.Location = new System.Drawing.Point(12, 12);
             this.c_RenderBox.Name = "c_RenderBox";
             this.c_RenderBox.Size = new System.Drawing.Size(512, 512);
@@ -61,8 +62,8 @@
             // 
             // c_LayersListBox
             // 
-            this.c_LayersListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.c_LayersListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.c_LayersListBox.FormattingEnabled = true;
             this.c_LayersListBox.IntegralHeight = false;
             this.c_LayersListBox.Location = new System.Drawing.Point(530, 12);
@@ -73,8 +74,8 @@
             // 
             // c_LayerInspector
             // 
-            this.c_LayerInspector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.c_LayerInspector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.c_LayerInspector.Enabled = false;
             this.c_LayerInspector.Location = new System.Drawing.Point(745, 12);
             this.c_LayerInspector.Name = "c_LayerInspector";
@@ -109,27 +110,42 @@
             this.c_PushLayerMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.c_PushGenerateContinentsMenuItem,
             this.c_PushZoomIterationsMenuItem,
+            this.c_PushRandomBiomeMenuItem,
             this.toolStripMenuItem1,
             this.c_CancelPushMenuItem});
             this.c_PushLayerMenu.Name = "c_AddLayerMenu";
-            this.c_PushLayerMenu.Size = new System.Drawing.Size(183, 76);
+            this.c_PushLayerMenu.Size = new System.Drawing.Size(227, 98);
             // 
             // c_PushGenerateContinentsMenuItem
             // 
             this.c_PushGenerateContinentsMenuItem.Name = "c_PushGenerateContinentsMenuItem";
-            this.c_PushGenerateContinentsMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.c_PushGenerateContinentsMenuItem.Size = new System.Drawing.Size(226, 22);
             this.c_PushGenerateContinentsMenuItem.Text = "Generate Continents";
             this.c_PushGenerateContinentsMenuItem.Click += new System.EventHandler(this.c_PushGenerateContinentsMenuItem_Click);
+            // 
+            // c_PushZoomIterationsMenuItem
+            // 
+            this.c_PushZoomIterationsMenuItem.Name = "c_PushZoomIterationsMenuItem";
+            this.c_PushZoomIterationsMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.c_PushZoomIterationsMenuItem.Text = "Zoom Iterations";
+            this.c_PushZoomIterationsMenuItem.Click += new System.EventHandler(this.c_PushZoomIterationsMenuItem_Click);
+            // 
+            // c_PushRandomBiomeMenuItem
+            // 
+            this.c_PushRandomBiomeMenuItem.Name = "c_PushRandomBiomeMenuItem";
+            this.c_PushRandomBiomeMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.c_PushRandomBiomeMenuItem.Text = "Replace with Random Biome";
+            this.c_PushRandomBiomeMenuItem.Click += new System.EventHandler(this.c_PushRandomBiomeMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(179, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(223, 6);
             // 
             // c_CancelPushMenuItem
             // 
             this.c_CancelPushMenuItem.Name = "c_CancelPushMenuItem";
-            this.c_CancelPushMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.c_CancelPushMenuItem.Size = new System.Drawing.Size(226, 22);
             this.c_CancelPushMenuItem.Text = "Cancel";
             this.c_CancelPushMenuItem.Click += new System.EventHandler(this.c_CancelPushMenuItem_Click);
             // 
@@ -161,13 +177,6 @@
             this.c_LoadConfigButton.Text = "Load";
             this.c_LoadConfigButton.UseVisualStyleBackColor = true;
             this.c_LoadConfigButton.Click += new System.EventHandler(this.c_LoadConfigButton_Click);
-            // 
-            // c_PushZoomIterationsMenuItem
-            // 
-            this.c_PushZoomIterationsMenuItem.Name = "c_PushZoomIterationsMenuItem";
-            this.c_PushZoomIterationsMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.c_PushZoomIterationsMenuItem.Text = "Zoom Iterations";
-            this.c_PushZoomIterationsMenuItem.Click += new System.EventHandler(this.c_PushZoomIterationsMenuItem_Click);
             // 
             // c_ViewAtSelectedLayerCheckbox
             // 
@@ -230,6 +239,7 @@
         private System.Windows.Forms.ToolStripMenuItem c_PushZoomIterationsMenuItem;
         private System.Windows.Forms.CheckBox c_ViewAtSelectedLayerCheckbox;
         private System.Windows.Forms.ProgressBar c_RenderProgress;
+        private System.Windows.Forms.ToolStripMenuItem c_PushRandomBiomeMenuItem;
     }
 }
 

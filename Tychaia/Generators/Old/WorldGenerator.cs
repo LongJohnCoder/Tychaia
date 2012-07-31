@@ -87,7 +87,7 @@ namespace Tychaia.Generators
                         heightmap.Heightmap[x, y] = (byte)(((noise + 1) * 128) / 4);
 
                         // Fill this pillar with blocks.
-                        for (byte z = heightmap.Heightmap[x, y]; z < Chunk.Depth; z++)
+                        for (int z = heightmap.Heightmap[x, y]; z < Chunk.Depth; z++)
                             blocks[x, y, z] = this.FindBlockForDepthLevel(info, z - heightmap.Heightmap[x, y]);
                     }
 

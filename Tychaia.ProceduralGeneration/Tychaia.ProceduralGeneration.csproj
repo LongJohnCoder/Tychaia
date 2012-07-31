@@ -33,6 +33,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,10 +42,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LayerVoronoiMixdown.cs" />
+    <Compile Include="LayerInvert.cs" />
+    <Compile Include="LayerInitialVoronoi.cs" />
+    <Compile Include="LayerInitialPerlin.cs" />
+    <Compile Include="LayerExtendLand.cs" />
+    <Compile Include="LayerColors.cs" />
+    <Compile Include="LayerStoreResult.cs" />
+    <Compile Include="LayerRandomBiome.cs" />
     <Compile Include="Layer.cs" />
-    <Compile Include="LayerContinent.cs" />
+    <Compile Include="LayerInitialLand.cs" />
     <Compile Include="LayerZoom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BenTools\FortuneVoronoi.csproj">
+      <Project>{DDF5D740-6EE1-44BA-9DB9-782BF23E28D6}</Project>
+      <Name>FortuneVoronoi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Protogame.Noise\Protogame.Noise.csproj">
+      <Project>{FE9A9DF1-16D8-4A24-8978-D4F2E540F039}</Project>
+      <Name>Protogame.Noise</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

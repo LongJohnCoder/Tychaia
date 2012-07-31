@@ -16,7 +16,7 @@ namespace TychaiaWorldGenViewer
     {
         Stack<Bitmap> m_RenderedImages = new Stack<Bitmap>();
         int m_Seed = 83645465;
-        Brush[] BrushAssociations;
+        Brush m_UnknownAssociation;
 
         public MainForm()
         {
@@ -24,11 +24,7 @@ namespace TychaiaWorldGenViewer
             RevalidateForm();
 
             // Associate numbers with colours so that they are easier to identify.
-            BrushAssociations = new Brush[]
-            {
-                /*   0 */ new SolidBrush(Color.FromArgb(0,0,255)),
-                /*   1 */ new SolidBrush(Color.FromArgb(0,255,0))
-            };
+            this.m_UnknownAssociation = new SolidBrush(Color.FromArgb(63, 63, 63));
         }
 
         private void RevalidateForm()
@@ -46,13 +42,20 @@ namespace TychaiaWorldGenViewer
             Bitmap b = new Bitmap(this.c_RenderBox.Width, this.c_RenderBox.Height);
             Graphics g = Graphics.FromImage(b);
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
+            Dictionary<int, Brush> brushes = l.GetLayerColors();
             int[] data = l.GenerateData(0, 0, 256, 256);
             for (int x = 0; x < 256; x++)
                 for (int y = 0; y < 256; y++)
-                    g.FillRectangle(
-                        BrushAssociations[data[x + y * 256]],
-                        new Rectangle(x * 2, y * 2, 2, 2)
-                        );
+                    if (brushes.ContainsKey(data[x + y * 256]))
+                        g.FillRectangle(
+                            brushes[data[x + y * 256]],
+                            new Rectangle(x * 2, y * 2, 2, 2)
+                            );
+                    else
+                        g.FillRectangle(
+                            this.m_UnknownAssociation,
+                            new Rectangle(x * 2, y * 2, 2, 2)
+                            );
             return b;
         }
 
@@ -116,8 +119,9 @@ namespace TychaiaWorldGenViewer
             {
                 XmlSerializer x = new XmlSerializer(typeof(SerializedLayers), new Type[]
                     {
-                        typeof(LayerContinent),
-                        typeof(LayerZoom)
+                        typeof(LayerInitialLand),
+                        typeof(LayerZoom),
+                        typeof(LayerRandomBiome)
                     });
                 SerializedLayers config = new SerializedLayers();
                 foreach (Layer l in this.c_LayersListBox.Items)
@@ -149,8 +153,9 @@ namespace TychaiaWorldGenViewer
                 this.RegenerateImage();
                 XmlSerializer x = new XmlSerializer(typeof(SerializedLayers), new Type[]
                     {
-                        typeof(LayerContinent),
-                        typeof(LayerZoom)
+                        typeof(LayerInitialLand),
+                        typeof(LayerZoom),
+                        typeof(LayerRandomBiome)
                     });
                 SerializedLayers config = null;
                 using (StreamReader reader = new StreamReader(ofd.FileName))
@@ -214,6 +219,7 @@ namespace TychaiaWorldGenViewer
             // Enable / disable layers depending on whether they require a parent layer.
             this.c_PushGenerateContinentsMenuItem.Enabled = this.c_LayersListBox.Items.Count == 0;
             this.c_PushZoomIterationsMenuItem.Enabled = this.c_LayersListBox.Items.Count > 0;
+            this.c_PushRandomBiomeMenuItem.Enabled = this.c_LayersListBox.Items.Count > 0;
         }
 
         private Layer GetParent()
@@ -223,13 +229,19 @@ namespace TychaiaWorldGenViewer
 
         private void c_PushGenerateContinentsMenuItem_Click(object sender, EventArgs e)
         {
-            this.c_LayersListBox.Items.Add(new LayerContinent(this.m_Seed));
+            this.c_LayersListBox.Items.Add(new LayerInitialLand(this.m_Seed));
             this.RegenerateImage();
         }
 
         private void c_PushZoomIterationsMenuItem_Click(object sender, EventArgs e)
         {
             this.c_LayersListBox.Items.Add(new LayerZoom(this.GetParent()));
+            this.RegenerateImage();
+        }
+
+        private void c_PushRandomBiomeMenuItem_Click(object sender, EventArgs e)
+        {
+            this.c_LayersListBox.Items.Add(new LayerRandomBiome(this.GetParent()));
             this.RegenerateImage();
         }
 

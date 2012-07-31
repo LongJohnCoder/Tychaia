@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
+using System.Drawing;
 
 namespace Tychaia.ProceduralGeneration
 {
+    [DataContract]
     public abstract class Layer
     {
+        [DataMember]
         private long m_Seed;
 
-        [NonSerialized]
-        private Layer m_Parent;
+        [DataMember]
+        private Layer[] m_Parents;
 
-        protected Layer Parent
+        public Layer[] Parents
         {
             get
             {
-                return this.m_Parent;
+                return this.m_Parents;
             }
         }
 
@@ -38,8 +41,8 @@ namespace Tychaia.ProceduralGeneration
                 this.m_Seed = seed;
             else
             {
-                this.m_Parent = parent;
-                this.m_Seed = this.m_Parent.m_Seed;
+                this.m_Parents = new Layer[1] { parent };
+                this.m_Seed = this.m_Parents[0].m_Seed;
                 this.TransformSeed();
             }
         }
@@ -62,14 +65,32 @@ namespace Tychaia.ProceduralGeneration
 
         protected Layer(int seed)
         {
+            this.m_Parents = new Layer[] { };
             this.m_Seed = seed;
         }
 
         protected Layer(Layer parent)
         {
-            this.m_Parent = parent;
-            this.m_Seed = parent.m_Seed;
-            this.TransformSeed();
+            this.m_Parents = new Layer[] { parent };
+            if (parent != null)
+            {
+                this.m_Seed = parent.m_Seed;
+                this.TransformSeed();
+            }
+        }
+
+        protected Layer(Layer[] parents)
+        {
+            if (parents == null)
+                throw new ArgumentNullException("parents");
+            if (parents.Length < 1)
+                throw new ArgumentOutOfRangeException("parents");
+            this.m_Parents = parents;
+            if (parents[0] != null)
+            {
+                this.m_Seed = parents[0].m_Seed;
+                this.TransformSeed();
+            }
         }
 
         protected Random GetCellRNG(int x, int y)
@@ -94,5 +115,39 @@ namespace Tychaia.ProceduralGeneration
         }
 
         public abstract int[] GenerateData(int x, int y, int width, int height);
+
+        public abstract Dictionary<int, System.Drawing.Brush> GetLayerColors();
+
+        #region Designer Methods
+
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public virtual string[] GetParentsRequired()
+        {
+            return new string[] { "Parent" };
+        }
+
+        public void SetParent(int idx, Layer parent)
+        {
+            if (this.m_Parents.Length <= idx)
+            {
+                // Resize up.
+                Layer[] newParents = new Layer[idx + 1];
+                for (int i = 0; i < this.m_Parents.Length; i++)
+                    newParents[i] = this.m_Parents[i];
+                newParents[idx] = parent;
+                this.m_Parents = newParents;
+            }
+            else
+                this.m_Parents[idx] = parent;
+
+            // Adjust seed if needed.
+            if (idx == 0)
+            {
+                this.m_Seed = this.m_Parents[idx].m_Seed;
+                this.TransformSeed();
+            }
+        }
+
+        #endregion
     }
 }
